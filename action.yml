@@ -296,6 +296,13 @@ runs:
       env:
         SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
 
+    - name: Clean up SSH agent.
+      run: |
+        ssh-agent -k
+      shell: bash
+      env:
+        SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
+
 branding:
   icon: 'zap'
   color: 'blue'
