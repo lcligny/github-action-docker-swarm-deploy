@@ -34,6 +34,10 @@ inputs:
     description: 'The SSH port of the remote server you would like to connect to.'
     default: '22'
     required: false
+  ssh_auth_sock:
+    description: 'The SSH_AUTH_SOCK environment variable.'
+    default: '/tmp/ssh_agent.sock'
+    required: false
   registry:
     description: 'Comma-separated list of container registries to authenticate with (e.g., "docker.io,ghcr.io").'
     default: 'docker.io' # Default to Docker Hub if not specified
@@ -80,7 +84,7 @@ runs:
           exit 1
         fi
       env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
       shell: bash
 
     - name: Verify SSH Connection
@@ -148,7 +152,7 @@ runs:
         exit 1
       shell: bash
       env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
 
     - name: If provided, use the known_hosts file.
       if: ${{ inputs.ssh_remote_known_hosts }}
@@ -290,7 +294,7 @@ runs:
           --prune
       shell: bash
       env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
 
 branding:
   icon: 'zap'
