@@ -299,6 +299,8 @@ runs:
     - name: Retrieve SSH_AGENT_PID.
       run: |
         echo "SSH_AGENT_PID=$(pidof ssh-agent)" >> $GITHUB_ENV
+      shell: bash
+
     - name: Clean up SSH agent.
       run: |
         ssh-agent -k
