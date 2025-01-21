@@ -302,6 +302,7 @@ runs:
       shell: bash
       env:
         SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
+        SSH_AGENT_PID: $(pidof ssh-agent)
 
 branding:
   icon: 'zap'
