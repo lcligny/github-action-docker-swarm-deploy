@@ -296,13 +296,16 @@ runs:
       env:
         SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
 
+    - name: Retrieve SSH_AGENT_PID.
+      run: |
+        echo "SSH_AGENT_PID=$(pidof ssh-agent)" >> $GITHUB_ENV
     - name: Clean up SSH agent.
       run: |
         ssh-agent -k
       shell: bash
       env:
         SSH_AUTH_SOCK: ${{ inputs.ssh_auth_sock }}
-        SSH_AGENT_PID: $(pidof ssh-agent)
+        SSH_AGENT_PID: ${{ env.SSH_AGENT_PID }}
 
 branding:
   icon: 'zap'
